@@ -49,7 +49,7 @@ export const Toolbar = ({ onSave, onOpen }: ToolbarProps) => {
         const editor = getEditor();
         if (!editor) return;
 
-        editor.action(callCommand(command, payload));
+        editor.action(callCommand(command.key, payload));
     };
 
     return (

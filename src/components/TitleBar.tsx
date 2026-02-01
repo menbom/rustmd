@@ -1,11 +1,19 @@
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { Minus, Square, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { isTauri } from '../utils/platform';
 
 export const TitleBar = () => {
     const [isMaximized, setIsMaximized] = useState(false);
+
+    if (!isTauri()) {
+        return null;
+    }
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const appWindow = getCurrentWindow();
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         const updateState = async () => {
             setIsMaximized(await appWindow.isMaximized());

@@ -4,6 +4,7 @@ import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { EditorWrapper, EditorRef } from './components/Editor';
 import { TitleBar } from './components/TitleBar';
 import { FolderOpen, Save, FilePlus } from 'lucide-react';
+import { isTauri } from './utils/platform';
 
 function App() {
   const editorRef = useRef<EditorRef>(null);
@@ -32,6 +33,10 @@ function App() {
 
 
   const handleOpen = async () => {
+    if (!isTauri()) {
+      alert("File system access is not available in the browser.");
+      return;
+    }
     try {
       const path = await openDialog({
         multiple: false,
@@ -51,6 +56,10 @@ function App() {
   };
 
   const handleSave = async () => {
+    if (!isTauri()) {
+      alert("File system access is not available in the browser.");
+      return;
+    }
     if (!currentPath) {
       const path = await saveDialog({
         filters: [{
@@ -71,7 +80,11 @@ function App() {
     try {
       const content = await editorRef.current?.getMarkdown();
       if (content === undefined) return;
-      await writeTextFile(path, content);
+      if (isTauri()) {
+        await writeTextFile(path, content);
+      } else {
+        console.log("Browser mode: Saving content to console", content);
+      }
       alert("Saved!");
     } catch (e) {
       console.error("Failed to save:", e);
