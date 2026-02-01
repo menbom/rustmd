@@ -12,6 +12,7 @@
   "dependencies": {
     "@milkdown/core": "^7.18.0",
     "@milkdown/ctx": "^7.18.0",
+    "@milkdown/plugin-prism": "^7.18.0",
     "@milkdown/preset-commonmark": "^7.18.0",
     "@milkdown/preset-gfm": "^7.18.0",
     "@milkdown/react": "^7.18.0",
@@ -30,7 +31,8 @@
     "prosemirror-transform": "^1.11.0",
     "prosemirror-view": "^1.41.5",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "refractor": "^5.0.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2",

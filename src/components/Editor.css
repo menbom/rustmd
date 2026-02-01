@@ -128,7 +128,3 @@
 .milkdown li.task-list-item {
     @apply flex items-start gap-2;
 }
-
-.milkdown li.task-list-item>input {
-    @apply mt-1;
-}

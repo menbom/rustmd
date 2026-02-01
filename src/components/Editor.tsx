@@ -4,6 +4,22 @@ import './Editor.css';
 import { Editor, rootCtx, defaultValueCtx, editorViewCtx, serializerCtx } from '@milkdown/core';
 import { commonmark } from '@milkdown/preset-commonmark';
 import { gfm } from '@milkdown/preset-gfm';
+import { prism, prismConfig } from '@milkdown/plugin-prism';
+// @ts-ignore
+import markdown from 'refractor/markdown';
+// @ts-ignore
+import javascript from 'refractor/javascript';
+// @ts-ignore
+import typescript from 'refractor/typescript';
+// @ts-ignore
+import css from 'refractor/css';
+// @ts-ignore
+import rust from 'refractor/rust';
+// @ts-ignore
+import html from 'refractor/markup';
+// @ts-ignore
+import json from 'refractor/json';
+import { nord } from '@milkdown/theme-nord';
 import { Milkdown, MilkdownProvider, useEditor } from '@milkdown/react';
 
 export interface EditorRef {
@@ -17,19 +33,32 @@ interface EditorInnerProps {
 }
 
 // Inner component that mounts the editor
-const EditorInner = ({ markdown, onEditorReady }: EditorInnerProps) => {
+const EditorInner = ({ markdown: markdownContent, onEditorReady }: EditorInnerProps) => {
     useEditor((root) => {
         const editor = Editor.make()
             .config((ctx) => {
                 ctx.set(rootCtx, root);
-                ctx.set(defaultValueCtx, markdown);
+                ctx.set(defaultValueCtx, markdownContent);
+                ctx.set(prismConfig.key, {
+                    configureRefractor: (refractor) => {
+                        refractor.register(markdown);
+                        refractor.register(javascript);
+                        refractor.register(typescript);
+                        refractor.register(css);
+                        refractor.register(rust);
+                        refractor.register(html);
+                        refractor.register(json);
+                    },
+                });
             })
+            .config(nord)
             .use(commonmark)
-            .use(gfm);
+            .use(gfm)
+            .use(prism);
 
         onEditorReady(editor);
         return editor;
-    }, [markdown]); // Re-run if markdown changes (though we rely on key for full reset)
+    }, [markdownContent]); // Re-run if markdown changes (though we rely on key for full reset)
 
     return <Milkdown />;
 };
