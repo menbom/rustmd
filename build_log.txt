@@ -1,0 +1,14 @@
+
+> tauri-apprustmd@0.1.0 build
+> tsc && vite build
+
+You are using Node.js 16.13.0. Vite requires Node.js version 20.19+ or 22.12+. Please upgrade your Node.js version.
+file:///C:/src/rustmd/node_modules/vite/dist/node/chunks/config.js:8
+import fsp, { constants } from "node:fs/promises";
+              ^^^^^^^^^
+SyntaxError: The requested module 'node:fs/promises' does not provide an export named 'constants'
+    at ModuleJob._instantiate (node:internal/modules/esm/module_job:124:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:181:5)
+    at async Promise.all (index 0)
+    at async ESMLoader.import (node:internal/modules/esm/loader:281:24)
+    at async CAC.<anonymous> (file:///C:/src/rustmd/node_modules/vite/dist/node/cli.js:626:28)

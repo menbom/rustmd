@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* Custom styles for Milkdown editor to mimic GitHub/VSCode Markdown */
+
+.milkdown .editor {
+    @apply outline-none h-full font-sans text-base leading-relaxed text-gray-900 dark:text-gray-100;
+}
+
+/* Headings */
+.milkdown h1 {
+    @apply text-3xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700;
+}
+
+.milkdown h2 {
+    @apply text-2xl font-bold mt-6 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700;
+}
+
+.milkdown h3 {
+    @apply text-xl font-semibold mt-5 mb-3;
+}
+
+.milkdown h4 {
+    @apply text-lg font-semibold mt-4 mb-2;
+}
+
+.milkdown h5 {
+    @apply text-base font-semibold mt-4 mb-2;
+}
+
+.milkdown h6 {
+    @apply text-sm font-semibold mt-4 mb-2 text-gray-600 dark:text-gray-400;
+}
+
+/* Paragraphs */
+.milkdown p {
+    @apply mb-4;
+}
+
+/* Lists */
+.milkdown ul {
+    @apply list-disc list-outside ml-6 mb-4;
+}
+
+.milkdown ol {
+    @apply list-decimal list-outside ml-6 mb-4;
+}
+
+.milkdown li {
+    @apply mb-1;
+}
+
+.milkdown li>p {
+    @apply mb-1;
+}
+
+.milkdown li>ul,
+.milkdown li>ol {
+    @apply mt-1 mb-1 ml-6;
+}
+
+/* Blockquote */
+.milkdown blockquote {
+    @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 py-1 my-4 text-gray-600 dark:text-gray-400;
+}
+
+/* Code */
+.milkdown code {
+    @apply font-mono text-sm bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-gray-800 dark:text-gray-200;
+}
+
+.milkdown pre {
+    @apply bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-x-auto my-4 text-sm font-mono leading-normal shadow-inner;
+}
+
+.milkdown pre code {
+    @apply bg-transparent p-0 text-inherit text-gray-800 dark:text-gray-200 border-none;
+}
+
+/* Horizontal Rule */
+.milkdown hr {
+    @apply my-8 h-1 bg-gray-200 dark:bg-gray-700 border-0;
+}
+
+/* Tables */
+.milkdown .tableWrapper {
+    @apply overflow-x-auto my-6 mb-4;
+}
+
+.milkdown table {
+    @apply w-full text-left border-collapse;
+}
+
+.milkdown thead {
+    @apply bg-gray-50 dark:bg-gray-800;
+}
+
+.milkdown th {
+    @apply px-3 py-2 font-semibold border border-gray-300 dark:border-gray-600 whitespace-nowrap;
+}
+
+.milkdown td {
+    @apply px-3 py-2 border border-gray-300 dark:border-gray-600;
+}
+
+.milkdown tr:nth-child(2n) {
+    @apply bg-gray-50 dark:bg-gray-800/50;
+}
+
+.milkdown tr {
+    @apply bg-white dark:bg-gray-900;
+}
+
+/* Links */
+.milkdown a {
+    @apply text-blue-600 dark:text-blue-400 no-underline hover:underline cursor-pointer;
+}
+
+/* Image */
+.milkdown img {
+    @apply max-w-full h-auto rounded-md my-4 border border-gray-200 dark:border-gray-700 bg-white dark:bg-black;
+}
+
+/* Task Lists */
+.milkdown ul.task-list-item {
+    @apply list-none ml-0;
+}
+
+.milkdown li.task-list-item {
+    @apply flex items-start gap-2;
+}
+
+.milkdown li.task-list-item>input {
+    @apply mt-1;
+}

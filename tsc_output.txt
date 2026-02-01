@@ -1,0 +1,5 @@
+src/App.tsx(4,44): error TS2307: Cannot find module 'lucide-react' or its corresponding type declarations.
+src/components/Editor.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/Editor.tsx(2,74): error TS6133: 'parserCtx' is declared but its value is never read.
+src/components/Editor.tsx(17,48): error TS6133: 'props' is declared but its value is never read.
+src/components/Editor.tsx(57,57): error TS6133: 'props' is declared but its value is never read.
