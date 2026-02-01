@@ -1,6 +1,7 @@
-# Tauri + React + Typescript
+# RustMD
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+This is a markdown editor built with Tauri, React and Typescript.
+It is 100% built using Google Antigravity, no manual coding was done, only prompts were used.
 
 ## Recommended IDE Setup
 
