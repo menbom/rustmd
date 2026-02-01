@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { open as openDialog, save as saveDialog } from '@tauri-apps/plugin-dialog';
 import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { EditorWrapper, EditorRef } from './components/Editor';
@@ -8,6 +8,28 @@ import { FolderOpen, Save, FilePlus } from 'lucide-react';
 function App() {
   const editorRef = useRef<EditorRef>(null);
   const [currentPath, setCurrentPath] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key === 's') {
+          e.preventDefault();
+          handleSave();
+        } else if (e.key === 'o') {
+          e.preventDefault();
+          handleOpen();
+        } else if (e.key === 'n') {
+          e.preventDefault();
+          handleNew();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentPath]); // Dependency on currentPath needed if handleSave uses it closure-captured. No, handleSave uses ref/state? 
+  // handleSave reads currentPath from closure. So dependency on currentPath is required.
+
 
   const handleOpen = async () => {
     try {
