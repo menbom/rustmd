@@ -34,41 +34,45 @@ export const TitleBar = () => {
     const close = () => appWindow.close();
 
     return (
-        <div className="h-10 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between select-none w-full shrink-0 z-50">
+        <div className="h-10 bg-industrial-surface border-b border-industrial-base flex items-center justify-between select-none w-full shrink-0 z-50 shadow-sm relative overflow-hidden">
+            {/* Design Element: Top Highlight */}
+            <div className="absolute top-0 left-0 w-full h-[1px] bg-white/5 pointer-events-none" />
+
             {/* Left side: App Name + Drag Region */}
             <div className="flex items-center flex-1 h-full min-w-0">
-                <div className="flex items-center space-x-2 px-3 pointer-events-none">
-                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 ml-1">RustMD</span>
+                <div className="flex items-center space-x-2 px-4 pointer-events-none border-r border-industrial-base h-full bg-industrial-surface z-10">
+                    <div className="w-2 h-2 bg-industrial-amber rotate-45" /> {/* Accent Diamond */}
+                    <span className="text-sm font-display font-bold tracking-wider text-gray-200 uppercase">RustMD</span>
                 </div>
                 {/* Drag spacer fills remaining space - Manual Handler */}
                 <div
                     onMouseDown={() => appWindow.startDragging()}
-                    className="flex-1 h-full cursor-default"
+                    className="flex-1 h-full cursor-default hover:bg-white/5 transition-colors"
                 />
             </div>
 
             {/* Right side: Window Controls (NO drag region) */}
-            <div className="flex items-center space-x-1 px-3">
+            <div className="flex items-center h-full">
                 <button
                     onClick={minimize}
-                    className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded text-gray-500 dark:text-gray-400 transition-colors cursor-default"
+                    className="h-full px-4 hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-default flex items-center justify-center border-l border-industrial-base"
                     title="Minimize"
                 >
-                    <Minus size={14} />
+                    <Minus size={16} />
                 </button>
                 <button
                     onClick={toggleMaximize}
-                    className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded text-gray-500 dark:text-gray-400 transition-colors cursor-default"
+                    className="h-full px-4 hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-default flex items-center justify-center border-l border-industrial-base"
                     title={isMaximized ? "Restore" : "Maximize"}
                 >
-                    <Square size={12} />
+                    <Square size={14} />
                 </button>
                 <button
                     onClick={close}
-                    className="p-1.5 hover:bg-red-500 hover:text-white dark:hover:bg-red-600 rounded text-gray-500 dark:text-gray-400 transition-colors cursor-default"
+                    className="h-full px-4 hover:bg-red-500/80 hover:text-white text-gray-400 transition-colors cursor-default flex items-center justify-center border-l border-industrial-base group"
                     title="Close"
                 >
-                    <X size={14} />
+                    <X size={16} className="group-hover:scale-110 transition-transform" />
                 </button>
             </div>
         </div >

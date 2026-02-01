@@ -33,11 +33,11 @@ const ToolbarButton = ({ onClick, icon: Icon, label }: { onClick: () => void, ic
             e.preventDefault();
             onClick();
         }}
-        className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
+        className="p-2 text-gray-400 hover:text-industrial-amber hover:bg-white/5 rounded-md transition-all duration-200 active:scale-95"
         title={label}
         aria-label={label}
     >
-        <Icon className="w-5 h-5" />
+        <Icon className="w-4 h-4" />
     </button>
 );
 
@@ -52,8 +52,10 @@ export const Toolbar = ({ onSave, onOpen }: ToolbarProps) => {
         editor.action(callCommand(command.key, payload));
     };
 
+    const Separator = () => <div className="w-px h-5 bg-white/10 mx-1" />;
+
     return (
-        <div className="flex items-center gap-1 p-2 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 sticky top-0 z-10 overflow-x-auto">
+        <div className="flex items-center gap-1 p-2 border-b border-industrial-base bg-industrial-surface sticky top-0 z-10 overflow-x-auto shadow-sm">
             <ToolbarButton
                 onClick={() => runCommand(toggleStrongCommand)}
                 icon={Bold}
@@ -64,7 +66,7 @@ export const Toolbar = ({ onSave, onOpen }: ToolbarProps) => {
                 icon={Italic}
                 label="Italic"
             />
-            <div className="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-1" />
+            <Separator />
             <ToolbarButton
                 onClick={() => runCommand(wrapInHeadingCommand, 1)}
                 icon={Heading1}
@@ -80,7 +82,7 @@ export const Toolbar = ({ onSave, onOpen }: ToolbarProps) => {
                 icon={Heading3}
                 label="Heading 3"
             />
-            <div className="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-1" />
+            <Separator />
             <ToolbarButton
                 onClick={() => runCommand(wrapInBulletListCommand)}
                 icon={List}
@@ -91,13 +93,13 @@ export const Toolbar = ({ onSave, onOpen }: ToolbarProps) => {
                 icon={ListOrdered}
                 label="Ordered List"
             />
-            <div className="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-1" />
+            <Separator />
             <ToolbarButton
                 onClick={() => runCommand(insertTableCommand)}
                 icon={Table}
                 label="Insert Table"
             />
-            <div className="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-1" />
+            <Separator />
             <ToolbarButton
                 onClick={onOpen}
                 icon={FolderOpen}

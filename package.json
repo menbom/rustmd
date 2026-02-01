@@ -33,6 +33,7 @@
     "prosemirror-view": "^1.41.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-resizable-panels": "^4.5.7",
     "refractor": "^5.0.0"
   },
   "devDependencies": {

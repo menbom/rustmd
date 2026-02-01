@@ -94,10 +94,10 @@ export const EditorWrapper = forwardRef<EditorRef, EditorWrapperProps>(({ onSave
 
     return (
         <MilkdownProvider key={editorKey}>
-            <div className="h-full w-full overflow-hidden p-4 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans flex flex-col">
-                <div className="max-w-4xl mx-auto w-full h-full flex flex-col shadow-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+            <div className="h-full w-full overflow-hidden p-0 bg-industrial-base text-gray-300 font-body flex flex-col">
+                <div className="mx-auto w-full h-full flex flex-col bg-industrial-surface border-none overflow-hidden">
                     <Toolbar onSave={onSave} onOpen={onOpen} />
-                    <div className="milkdown flex-1 overflow-y-auto p-8">
+                    <div className="milkdown flex-1 overflow-y-auto px-12 py-8 max-w-4xl mx-auto w-full">
                         <EditorInner
                             markdown={content}
                             onEditorReady={(editor) => {

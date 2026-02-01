@@ -3,6 +3,7 @@ import { open as openDialog, save as saveDialog } from '@tauri-apps/plugin-dialo
 import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { EditorWrapper, EditorRef } from './components/Editor';
 import { TitleBar } from './components/TitleBar';
+import { ResizableLayout } from './components/ResizableLayout';
 import { FolderOpen, Save, FilePlus } from 'lucide-react';
 import { isTauri } from './utils/platform';
 
@@ -124,8 +125,10 @@ function App() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden">
-        <EditorWrapper ref={editorRef} onSave={handleSave} onOpen={handleOpen} />
+      <div className="flex-1 overflow-hidden h-full">
+        <ResizableLayout
+          left={<EditorWrapper ref={editorRef} onSave={handleSave} onOpen={handleOpen} />}
+        />
       </div>
     </div>
   );
