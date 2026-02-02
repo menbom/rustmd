@@ -38,7 +38,7 @@ vi.mock('@milkdown/react', () => ({
         React.useEffect(() => {
             factory(document.createElement('div'));
         }, []);
-        return { loading: false, editor: mockEditor };
+        return { loading: false, get: () => mockEditor };
     },
 }));
 
@@ -132,4 +132,50 @@ describe('Editor', () => {
            We can do that by spying on mockConfig calls.
         */
     });
+    it('focuses the editor on load', () => {
+        const mockFocus = vi.fn();
+        mockCtx.get.mockImplementation((key) => {
+            if (key === 'editorViewCtx') return {
+                state: { doc: {} },
+                focus: mockFocus,
+                hasFocus: vi.fn(() => false)
+            };
+            return null;
+        });
+
+        // We need to render the component
+        render(<EditorWrapper />);
+
+        // The implementation should assume useEditor returns the editor, 
+        // and in a useEffect (or similar), it calls editor.action(...)
+
+        // Wait for useEffects to run
+        // In this test environment, useEffects run synchronously after render usually, 
+        // but we might need to wrap in act implies automatic?
+
+        // Check if action was called
+        expect(mockAction).toHaveBeenCalled();
+
+        // Find the action call that focuses
+        const actionCalls = mockAction.mock.calls;
+        let foundFocusCall = false;
+
+        actionCalls.forEach(([callback]) => {
+            if (typeof callback === 'function') {
+                // Execute the callback with our mock context
+                // We wrap in try-catch in case the callback does something else that throws with our partial mock
+                try {
+                    callback(mockCtx);
+                    if (mockFocus.mock.calls.length > 0) {
+                        foundFocusCall = true;
+                    }
+                } catch (e) {
+                    // ignore errors from other actions
+                }
+            }
+        });
+
+        expect(foundFocusCall).toBe(true);
+    });
 });
+

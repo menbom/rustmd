@@ -1,4 +1,4 @@
-import { useImperativeHandle, forwardRef, useState, useRef } from 'react';
+import { useImperativeHandle, forwardRef, useState, useRef, useEffect } from 'react';
 import { Toolbar } from './Toolbar';
 import './Editor.css';
 import { Editor, rootCtx, defaultValueCtx, editorViewCtx, serializerCtx } from '@milkdown/core';
@@ -34,7 +34,7 @@ interface EditorInnerProps {
 
 // Inner component that mounts the editor
 const EditorInner = ({ markdown: markdownContent, onEditorReady }: EditorInnerProps) => {
-    useEditor((root) => {
+    const { loading, get } = useEditor((root) => {
         const editor = Editor.make()
             .config((ctx) => {
                 ctx.set(rootCtx, root);
@@ -58,7 +58,24 @@ const EditorInner = ({ markdown: markdownContent, onEditorReady }: EditorInnerPr
 
         onEditorReady(editor);
         return editor;
-    }, [markdownContent]); // Re-run if markdown changes (though we rely on key for full reset)
+    }, [markdownContent]);
+
+    // Auto-focus when editor is ready
+    useEffect(() => {
+        if (!loading) {
+            const editor = get();
+            editor?.action((ctx) => {
+                try {
+                    const view = ctx.get(editorViewCtx);
+                    if (view && !view.hasFocus()) {
+                        view.focus();
+                    }
+                } catch (e) {
+                    // view might not be ready if something went wrong
+                }
+            });
+        }
+    }, [loading, get]);
 
     return <Milkdown />;
 };
