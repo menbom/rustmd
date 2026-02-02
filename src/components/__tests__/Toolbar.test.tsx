@@ -4,8 +4,11 @@ import { Toolbar } from '../Toolbar';
 import {
     toggleStrongCommand,
     toggleEmphasisCommand,
-    wrapInHeadingCommand
+    wrapInHeadingCommand,
+    wrapInBulletListCommand,
+    wrapInOrderedListCommand
 } from '@milkdown/preset-commonmark';
+import { insertTableCommand } from '@milkdown/preset-gfm';
 import { callCommand } from '@milkdown/utils';
 
 // Mock milkdown dependencies
@@ -20,9 +23,17 @@ vi.mock('@milkdown/utils', () => ({
     callCommand: vi.fn((cmd, payload) => ({ cmd, payload })),
 }));
 
-// We check if the command passed is the one we expect.
-// Since we are not mocking preset-commonmark entirely, we use the real import reference
-// or we can just spy on callCommand to see if it received the right object.
+vi.mock('@milkdown/preset-commonmark', () => ({
+    toggleStrongCommand: { key: 'toggleStrongCommand' },
+    toggleEmphasisCommand: { key: 'toggleEmphasisCommand' },
+    wrapInHeadingCommand: { key: 'wrapInHeadingCommand' },
+    wrapInBulletListCommand: { key: 'wrapInBulletListCommand' },
+    wrapInOrderedListCommand: { key: 'wrapInOrderedListCommand' },
+}));
+
+vi.mock('@milkdown/preset-gfm', () => ({
+    insertTableCommand: { key: 'insertTableCommand' },
+}));
 
 describe('Toolbar', () => {
     beforeEach(() => {
@@ -56,5 +67,56 @@ describe('Toolbar', () => {
         const h1Btn = screen.getByTitle('Heading 1');
         fireEvent.mouseDown(h1Btn);
         expect(callCommand).toHaveBeenCalledWith(wrapInHeadingCommand.key, 1);
+    });
+
+    it('executes wrapInHeadingCommand (level 2) when Heading 2 button is clicked', () => {
+        render(<Toolbar onSave={() => { }} onOpen={() => { }} />);
+        const h2Btn = screen.getByTitle('Heading 2');
+        fireEvent.mouseDown(h2Btn);
+        expect(callCommand).toHaveBeenCalledWith(wrapInHeadingCommand.key, 2);
+    });
+
+    it('executes wrapInHeadingCommand (level 3) when Heading 3 button is clicked', () => {
+        render(<Toolbar onSave={() => { }} onOpen={() => { }} />);
+        const h3Btn = screen.getByTitle('Heading 3');
+        fireEvent.mouseDown(h3Btn);
+        expect(callCommand).toHaveBeenCalledWith(wrapInHeadingCommand.key, 3);
+    });
+
+    it('executes wrapInBulletListCommand when Bullet List button is clicked', () => {
+        render(<Toolbar onSave={() => { }} onOpen={() => { }} />);
+        const listBtn = screen.getByTitle('Bullet List');
+        fireEvent.mouseDown(listBtn);
+        expect(callCommand).toHaveBeenCalledWith(wrapInBulletListCommand.key, undefined);
+    });
+
+    it('executes wrapInOrderedListCommand when Ordered List button is clicked', () => {
+        render(<Toolbar onSave={() => { }} onOpen={() => { }} />);
+        const listBtn = screen.getByTitle('Ordered List');
+        fireEvent.mouseDown(listBtn);
+        expect(callCommand).toHaveBeenCalledWith(wrapInOrderedListCommand.key, undefined);
+    });
+
+    it('executes insertTableCommand when Insert Table button is clicked', () => {
+        render(<Toolbar onSave={() => { }} onOpen={() => { }} />);
+        const tableBtn = screen.getByTitle('Insert Table');
+        fireEvent.mouseDown(tableBtn);
+        expect(callCommand).toHaveBeenCalledWith(insertTableCommand.key, undefined);
+    });
+
+    it('calls onOpen when Open File button is clicked', () => {
+        const onOpen = vi.fn();
+        render(<Toolbar onSave={() => { }} onOpen={onOpen} />);
+        const openBtn = screen.getByTitle('Open File');
+        fireEvent.mouseDown(openBtn);
+        expect(onOpen).toHaveBeenCalled();
+    });
+
+    it('calls onSave when Save File button is clicked', () => {
+        const onSave = vi.fn();
+        render(<Toolbar onSave={onSave} onOpen={() => { }} />);
+        const saveBtn = screen.getByTitle('Save File');
+        fireEvent.mouseDown(saveBtn);
+        expect(onSave).toHaveBeenCalled();
     });
 });

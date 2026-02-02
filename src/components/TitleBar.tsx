@@ -46,6 +46,7 @@ export const TitleBar = () => {
                 </div>
                 {/* Drag spacer fills remaining space - Manual Handler */}
                 <div
+                    data-testid="drag-region"
                     onMouseDown={() => appWindow.startDragging()}
                     className="flex-1 h-full cursor-default hover:bg-white/5 transition-colors"
                 />
