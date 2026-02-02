@@ -64,11 +64,9 @@ const EditorInner = ({ markdown: markdownContent, onEditorReady }: EditorInnerPr
 };
 
 interface EditorWrapperProps {
-    onSave: () => void;
-    onOpen: () => void;
 }
 
-export const EditorWrapper = forwardRef<EditorRef, EditorWrapperProps>(({ onSave, onOpen }, ref) => {
+export const EditorWrapper = forwardRef<EditorRef, EditorWrapperProps>((_, ref) => {
     const [content, setContent] = useState('# Welcome to RustMD\n\nStart typing or open a file...');
     const [editorKey, setEditorKey] = useState(0);
     const editorInstance = useRef<Editor | null>(null);
@@ -96,14 +94,16 @@ export const EditorWrapper = forwardRef<EditorRef, EditorWrapperProps>(({ onSave
         <MilkdownProvider key={editorKey}>
             <div className="h-full w-full overflow-hidden p-0 bg-industrial-base text-gray-300 font-body flex flex-col">
                 <div className="mx-auto w-full h-full flex flex-col bg-industrial-surface border-none overflow-hidden">
-                    <Toolbar onSave={onSave} onOpen={onOpen} />
-                    <div className="milkdown flex-1 overflow-y-auto px-12 py-8 max-w-4xl mx-auto w-full">
-                        <EditorInner
-                            markdown={content}
-                            onEditorReady={(editor) => {
-                                editorInstance.current = editor;
-                            }}
-                        />
+                    <Toolbar />
+                    <div className="milkdown flex-1 overflow-y-auto w-full">
+                        <div className="px-6 py-4 max-w-4xl mx-auto w-full">
+                            <EditorInner
+                                markdown={content}
+                                onEditorReady={(editor) => {
+                                    editorInstance.current = editor;
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

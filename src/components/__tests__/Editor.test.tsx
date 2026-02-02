@@ -75,14 +75,14 @@ describe('Editor', () => {
     });
 
     it('renders MilkdownProvider and Milkdown editor', () => {
-        render(<EditorWrapper onSave={() => { }} onOpen={() => { }} />);
+        render(<EditorWrapper />);
         expect(screen.getByTestId('milkdown-provider')).toBeInTheDocument();
         expect(screen.getByTestId('milkdown-editor')).toBeInTheDocument();
         expect(screen.getByTestId('toolbar')).toBeInTheDocument();
     });
 
     it('initializes editor with configuration', () => {
-        render(<EditorWrapper onSave={() => { }} onOpen={() => { }} />);
+        render(<EditorWrapper />);
 
         expect(mockConfig).toHaveBeenCalled();
         expect(mockUse).toHaveBeenCalled();
@@ -96,7 +96,7 @@ describe('Editor', () => {
 
     it('exposes getMarkdown and setMarkdown via ref', async () => {
         const ref = React.createRef<EditorRef>();
-        render(<EditorWrapper ref={ref} onSave={() => { }} onOpen={() => { }} />);
+        render(<EditorWrapper ref={ref} />);
 
         // Test getMarkdown
         const mockSerializerResult = "# Mock Markdown";

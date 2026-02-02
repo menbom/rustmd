@@ -16,15 +16,8 @@ import {
     Heading3,
     List,
     ListOrdered,
-    Table,
-    FolderOpen,
-    Save
+    Table
 } from 'lucide-react';
-
-interface ToolbarProps {
-    onSave: () => void;
-    onOpen: () => void;
-}
 
 const ToolbarButton = ({ onClick, icon: Icon, label }: { onClick: () => void, icon: any, label: string }) => (
     <button
@@ -41,7 +34,7 @@ const ToolbarButton = ({ onClick, icon: Icon, label }: { onClick: () => void, ic
     </button>
 );
 
-export const Toolbar = ({ onSave, onOpen }: ToolbarProps) => {
+export const Toolbar = () => {
     const [loading, getEditor] = useInstance();
 
     const runCommand = <T,>(command: any, payload?: T) => {
@@ -98,17 +91,6 @@ export const Toolbar = ({ onSave, onOpen }: ToolbarProps) => {
                 onClick={() => runCommand(insertTableCommand)}
                 icon={Table}
                 label="Insert Table"
-            />
-            <Separator />
-            <ToolbarButton
-                onClick={onOpen}
-                icon={FolderOpen}
-                label="Open File"
-            />
-            <ToolbarButton
-                onClick={onSave}
-                icon={Save}
-                label="Save File"
             />
         </div>
     );

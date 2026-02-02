@@ -127,7 +127,7 @@ function App() {
 
       <div className="flex-1 overflow-hidden h-full">
         <ResizableLayout
-          left={<EditorWrapper ref={editorRef} onSave={handleSave} onOpen={handleOpen} />}
+          left={<EditorWrapper ref={editorRef} />}
         />
       </div>
     </div>

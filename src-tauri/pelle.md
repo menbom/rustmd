@@ -15,6 +15,7 @@ Hur mår du?
 Lite mera text.
 
 * En punktlista 1
+
 * En punktlista 2
 
 1. En numrerad lista 1
@@ -24,3 +25,7 @@ Lite mera text.
 | ---------- | ---------- | ---------- |
 | Innehåll 1 | Innehåll 2 | Innehåll 3 |
 | Innehåll 4 | Innehåll 5 | Innehåll 6 |
+
+<br />
+
+hejj asssss
