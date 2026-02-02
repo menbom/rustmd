@@ -69,7 +69,7 @@ describe('Editor', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         // Reset mock implementations if needed
-        mockAction.mockImplementation((callback) => {
+        mockAction.mockImplementation((_callback) => {
             // Simulate action execution if needed immediately
         });
     });
